@@ -13,8 +13,15 @@ import static org.junit.Assert.*;
 public class GameCoreTest {
     private Referee referee = new Referee();
     private ColorMatcher colorMatcher = new ColorMatcher();
-    private GameState gameState = new GameState(false, 59);
+    private GameState gameState59Attempts = new GameState(false, 59);
+    private GameState gameState60Attempts = new GameState(false, 60);
     private List<Color> masterColor = new ArrayList<>() {{
+        add(Color.Orange);
+        add(Color.Blue);
+        add(Color.Red);
+        add(Color.Yellow);
+    }};
+    private List<Color> humanColorMatch = new ArrayList<>() {{
         add(Color.Orange);
         add(Color.Blue);
         add(Color.Red);
@@ -26,25 +33,26 @@ public class GameCoreTest {
         add(Color.Purple);
         add(Color.Purple);
     }};
-    private List<Color> humanColorMatch = new ArrayList<>() {{
-        add(Color.Orange);
-        add(Color.Blue);
-        add(Color.Red);
-        add(Color.Yellow);
-    }};
-    GameCore core = new GameCore(masterColor, referee, colorMatcher);
+    private GameCore core = new GameCore(masterColor, referee, colorMatcher);
 
     @Test
-    public void givenNoMatchHumanColorSetGameStateFalseIncreaseAttemptsBy1() {
-        core.play(humanColorDoNotMatch, gameState);
-        assertThat(gameState.isWon(), equalTo(false));
-        assertThat(gameState.getAttempts(), equalTo(60));
+    public void givenNoMatchHumanColor59AttemptsSetGameStateFalseIncreaseAttemptsBy1() {
+        core.play(humanColorDoNotMatch, gameState59Attempts);
+        assertThat(gameState59Attempts.isWon(), equalTo(false));
+        assertThat(gameState59Attempts.getAttempts(), equalTo(60));
     }
 
     @Test
-    public void givenMatchHumanColorSetGameStateTrueIncreaseAttemptsBy1() {
-        core.play(humanColorMatch, gameState);
-        assertThat(gameState.isWon(), equalTo(true));
-        assertThat(gameState.getAttempts(), equalTo(60));
+    public void givenMatchHumanColor59AttemptsSetGameStateTrueIncreaseAttemptsBy1() {
+        core.play(humanColorMatch, gameState59Attempts);
+        assertThat(gameState59Attempts.isWon(), equalTo(true));
+        assertThat(gameState59Attempts.getAttempts(), equalTo(60));
+    }
+
+    @Test
+    public void givenMatchHumanColor60AttemptsSetGameStateTrueIncreaseAttemptsBy1() {
+        core.play(humanColorMatch, gameState60Attempts);
+        assertThat(gameState60Attempts.isWon(), equalTo(true));
+        assertThat(gameState60Attempts.getAttempts(), equalTo(61));
     }
 }
