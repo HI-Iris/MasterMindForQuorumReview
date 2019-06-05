@@ -21,7 +21,7 @@ public class GameStarter {
         this.game = new GameCore(masterColorBuilder.buildColor(), referee, colorMatcher);
         this.humanColorParser = new HumanColorParser(humanColorBuilder, inputSplitter);
         this.printer = new Printer();
-        this.gameState = new GameState(false, 0);
+        this.gameState = new GameState();
     }
 
     public void start() {

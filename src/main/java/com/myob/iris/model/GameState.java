@@ -5,9 +5,9 @@ public class GameState {
     private boolean win;
     private int attempts;
 
-    public GameState(boolean win, int attempts) {
-        this.win = win;
-        this.attempts = attempts;
+    public GameState() {
+        this.win = false;
+        this.attempts = 0;
     }
 
     public boolean isWon() {
